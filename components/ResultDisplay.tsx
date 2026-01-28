@@ -25,7 +25,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
   const [isSharing, setIsSharing] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState(0);
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
-  const [showShareOptions, setShowShareOptions] = useState(false);
+
 
   // Cycle through loading phases when generating
   useEffect(() => {
@@ -135,12 +135,12 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
             text: shareText,
           });
           setIsSharing(false);
-          setShowShareOptions(false);
+
           return;
         } catch (shareError) {
           if ((shareError as Error).name === "AbortError") {
             setIsSharing(false);
-            setShowShareOptions(false);
+
             return;
           }
         }
@@ -158,7 +158,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
       console.error("Share failed:", error);
     } finally {
       setIsSharing(false);
-      setShowShareOptions(false);
+
     }
   };
 

@@ -1,0 +1,18 @@
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  background-color: #fffdf5; /* Creamy white */
+  /* Polka dot pattern */
+  background-image:
+    radial-gradient(#e0e7ff 2px, transparent 2px),
+    radial-gradient(#fce7f3 2px, transparent 2px);
+  background-size: 32px 32px;
+  background-position:
+    0 0,
+    16px 16px;
+}
+h1,
+h2,
+h3,
+.brand-font {
+  font-family: "Fredoka", sans-serif;
+}
