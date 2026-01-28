@@ -21,6 +21,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
   isGenerating,
   onReset,
   onRemix,
+  currentStyle,
 }) => {
   const [isSharing, setIsSharing] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState(0);
@@ -214,7 +215,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
         </div>
 
         {/* Generated Art (Center Stage) */}
-        <div className="relative w-full max-w-md shrink-0">
+        <div className="relative w-full max-w-md shrink-0 flex flex-col items-center">
           <div className="bg-white p-3 md:p-4 shadow-2xl rounded-2xl w-full aspect-[3/4] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
             {generatedImage && !isGenerating ? (
               <img
@@ -251,6 +252,17 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
               </div>
             )}
           </div>
+
+          {/* Style Name Display (For Fine-tuning) */}
+          {generatedImage && !isGenerating && currentStyle && (
+             <div className="mt-6 flex flex-col items-center animate-in slide-in-from-bottom-2 fade-in duration-500">
+               <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Applied Style</span>
+               <div className={`px-6 py-2 rounded-full border-2 ${currentStyle.colorClass} shadow-sm flex items-center gap-2 bg-opacity-50`}>
+                 <span className="text-lg">✨</span>
+                 <span className="font-bold text-gray-800">{currentStyle.name}</span>
+               </div>
+             </div>
+          )}
         </div>
       </div>
 

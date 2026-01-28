@@ -79,20 +79,6 @@ const STYLES: StyleOption[] = [
     `
   },
   {
-    id: 'noir',
-    name: 'ロックスター',
-    description: 'クールな白黒ポスター。',
-    colorClass: 'bg-gray-200 border-gray-500',
-    element: 'SOUND',
-    prompt: `
-      - Style: GRITTY Punk Rock Gig Poster.
-      - Material: Ripped xerox copies, duct tape, safety pins, and spray paint.
-      - Technique: PHOTOCOPY DEGRADATION. High noise, rough textures, and cutout lettering (ransom note style).
-      - Composition: CHAOTIC and rebellious. Slanted angles and distressed borders.
-      - Vibe: Aggressive, loud, and underground.
-    `
-  },
-  {
     id: 'cyber',
     name: 'フューチャーゲーマー',
     description: 'グリッチとネオンカラー。',
@@ -147,38 +133,8 @@ const STYLES: StyleOption[] = [
       - Composition: CHAOTIC CURATION. A messy but artistic explosion of fashion items and sweets. Meaningful chaos.
       - Vibe: Artistic, eccentric, and high-fashion (less 'fluffy', more 'bold').
     `
-  },
-  {
-    id: 'neon_retro',
-    name: 'ネオン・レトロ',
-    description: '80年代のキラキラな未来！',
-    colorClass: 'bg-violet-100 border-violet-400',
-    element: 'FUTURE',
-    prompt: `
-      - Style: RETRO WAVE / SYNTHWAVE.
-      - Material: Airbrushed chrome, neon tubes, and laser grids.
-      - Technique: GLOWING EFFECTS. Everything should shine with neon light.
-      - Composition: SYMMETRICAL landscape with a retro sun and digital mountains.
-      - Colors: DEEP PURPLE, HOT PINK, and ELECTRIC BLUE gradients.
-      - Vibe: Nostalgic, shiny, and cool.
-    `
   }
 ];
-
-const SECRET_STYLE: StyleOption = {
-  id: 'kintsugi_gold',
-  name: 'ゴールデントレジャー',
-  description: 'キラキラ輝く金色の魔法！',
-  colorClass: 'bg-yellow-50 border-yellow-600',
-  element: 'DIVINE',
-  prompt: `
-    - Style: Kintsugi Masterpiece.
-    - Material: Cracked ceramics and gold lacquer.
-    - Technique: The image appears broken and repaired with visible veins of gold.
-    - Composition: High contrast between dark backgrounds and shining gold cracks.
-    - Vibe: Precious, magical, and glowing.
-  `
-};
 
 const TERMS_TEXT = `
 【利用規約】
@@ -218,14 +174,8 @@ const App: React.FC = () => {
   const CUTE_STYLE_IDS = ['candy_pop', 'pop', 'botanical'];
 
   const getRandomStyle = (excludeId?: string): StyleOption => {
-    // 10% chance to trigger the SECRET STYLE (Only if not in initial cute phase)
-    const isSecret = Math.random() < 0.10;
     const isInitialPhase = usedCuteStyles.length < CUTE_STYLE_IDS.length;
     
-    if (!isInitialPhase && isSecret && excludeId !== 'kintsugi_gold') {
-      return SECRET_STYLE;
-    }
-
     let nextStyle: StyleOption;
 
     if (isInitialPhase) {
@@ -241,8 +191,7 @@ const App: React.FC = () => {
       const randomId = validPool[Math.floor(Math.random() * validPool.length)];
       nextStyle = STYLES.find(s => s.id === randomId)!;
     } else {
-      // Phase 2: Pick from Remaining Styles (excluding Cute styles to ensure variety initially, or include them? 
-      // User said "remaining 9 patterns". Assuming strictly the other 9.
+      // Phase 2: Pick from Remaining Styles (excluding Cute styles to ensure variety initially)
       const otherStyles = STYLES.filter(s => !CUTE_STYLE_IDS.includes(s.id));
       const availableStyles = excludeId 
         ? otherStyles.filter(s => s.id !== excludeId)
@@ -315,9 +264,7 @@ const App: React.FC = () => {
     });
   };
 
-  const currentStyle = state.currentStyleId === SECRET_STYLE.id 
-    ? SECRET_STYLE 
-    : STYLES.find(s => s.id === state.currentStyleId);
+  const currentStyle = STYLES.find(s => s.id === state.currentStyleId);
 
   return (
     <div className="min-h-screen pb-24 relative overflow-hidden font-[Fredoka]">
