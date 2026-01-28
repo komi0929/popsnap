@@ -11,15 +11,15 @@ const STYLES: StyleOption[] = [
   {
     id: 'pop',
     name: 'コミックヒーロー',
-    description: '超カラフルなコミックスタイル！',
+    description: '元気で明るいポップ漫画！',
     colorClass: 'bg-yellow-100 border-yellow-400',
     element: 'LIGHT',
     prompt: `
-      - Style: EXPLOSIVE Comic Book Cover & Pop Art.
-      - Material: Vintage American comic cutouts, distressed newsprint.
-      - Technique: THICK black outlines, EXAGGERATED Ben-Day dots, and neon-bright CMYK colors.
-      - Composition: ACTION-PACKED! Surround the subject with massive "POW!" "BAM!" sound effects and jagged burst shapes.
-      - Vibe: Heroic, loud, and impactful.
+      - Style: FRIENDLY COMIC BOOK & Pop Art.
+      - Material: Bright comic strips, halftone patterns, and speech bubbles.
+      - Technique: SOFT outlines, vibrant primary colors, and cheerful Ben-Day dots.
+      - Composition: FUN and ENERGETIC. Surround the subject with "POP!" "YAY!" effects and stars.
+      - Vibe: Happy, playful, and expressive.
     `
   },
   {
@@ -66,16 +66,16 @@ const STYLES: StyleOption[] = [
   },
   {
     id: 'botanical',
-    name: 'フェアリーフォレスト',
-    description: 'お花と自然がいっぱい。',
+    name: 'フェアリーガーデン',
+    description: 'キラキラした妖精のお庭。',
     colorClass: 'bg-green-100 border-green-500',
     element: 'NATURE',
     prompt: `
-      - Style: LUSH Botanical Collage.
-      - Material: Real dried pressed flowers, ferns, vines, and textured kraft paper.
-      - Technique: OVERGROWN aesthetic. The subject is entwined with nature.
-      - Composition: EXPLOSION OF FLORA. Surround the subject with a dense jungle of colorful flowers and leaves.
-      - Vibe: Organic, wild, and beautiful.
+      - Style: MAGICAL FAIRY GARDEN.
+      - Material: Soft petals, morning dew, sparkling dust, and pastel watercolors.
+      - Technique: DREAMY and SOFT. The subject is surrounded by gentle nature and glowing lights.
+      - Composition: WHIMSICAL FLORA. Tiny flowers, butterflies, and soft green leaves framing the subject.
+      - Vibe: Cute, peaceful, and magical.
     `
   },
   {
@@ -137,15 +137,15 @@ const STYLES: StyleOption[] = [
   {
     id: 'candy_pop',
     name: 'キャンディ・ポップ',
-    description: 'お菓子とステッカーでデコっちゃおう！',
+    description: 'ふわふわパステルなお菓子！',
     colorClass: 'bg-rose-100 border-rose-400',
     element: 'SWEET',
     prompt: `
-      - Style: EXTREME KAWAII DECORA.
-      - Material: PLASTIC EVERYTHING. Stickers, jewels, candy wrappers, toys, and glitter.
-      - Technique: VISUAL SUFFOCATION (Horror Vacui). Fill every inch of empty space with cute items.
-      - Composition: EXPLOSION OF CUTENESS. Center subject drowning in a sea of pastels and rainbows.
-      - Vibe: Hyper-cute, overwhelming, and sugary.
+      - Style: SOFT PASTEL KAWAII.
+      - Material: Marsmallows, cotton candy, soft stickers, and fluffy clouds.
+      - Technique: GENTLE and SWEET. Light pinks, baby blues, and cream colors.
+      - Composition: DREAMY CUTENESS. Subject floating among sweets and hearts. Not too crowded.
+      - Vibe: Adorable, soft, and happy.
     `
   },
   {
@@ -214,19 +214,44 @@ const App: React.FC = () => {
 
   const [modalContent, setModalContent] = useState<{title: string, text: string} | null>(null);
 
+  const [usedCuteStyles, setUsedCuteStyles] = useState<string[]>([]);
+  const CUTE_STYLE_IDS = ['candy_pop', 'pop', 'botanical'];
+
   const getRandomStyle = (excludeId?: string): StyleOption => {
-    // 10% chance to trigger the SECRET STYLE
+    // 10% chance to trigger the SECRET STYLE (Only if not in initial cute phase)
     const isSecret = Math.random() < 0.10;
+    const isInitialPhase = usedCuteStyles.length < CUTE_STYLE_IDS.length;
     
-    if (isSecret && excludeId !== 'kintsugi_gold') {
+    if (!isInitialPhase && isSecret && excludeId !== 'kintsugi_gold') {
       return SECRET_STYLE;
     }
 
-    const availableStyles = excludeId 
-      ? STYLES.filter(s => s.id !== excludeId)
-      : STYLES;
-    const randomIndex = Math.floor(Math.random() * availableStyles.length);
-    return availableStyles[randomIndex];
+    let nextStyle: StyleOption;
+
+    if (isInitialPhase) {
+      // Phase 1: Pick from Cute Styles (that haven't been used yet)
+      const availableCute = CUTE_STYLE_IDS.filter(id => !usedCuteStyles.includes(id));
+      // Fallback to random cute if something goes wrong (shouldn't happen)
+      const targetPool = availableCute.length > 0 ? availableCute : CUTE_STYLE_IDS;
+      // Filter out current if remixing (unless only 1 left)
+      const validPool = excludeId && targetPool.length > 1 
+        ? targetPool.filter(id => id !== excludeId)
+        : targetPool;
+        
+      const randomId = validPool[Math.floor(Math.random() * validPool.length)];
+      nextStyle = STYLES.find(s => s.id === randomId)!;
+    } else {
+      // Phase 2: Pick from Remaining Styles (excluding Cute styles to ensure variety initially, or include them? 
+      // User said "remaining 9 patterns". Assuming strictly the other 9.
+      const otherStyles = STYLES.filter(s => !CUTE_STYLE_IDS.includes(s.id));
+      const availableStyles = excludeId 
+        ? otherStyles.filter(s => s.id !== excludeId)
+        : otherStyles;
+      const randomIndex = Math.floor(Math.random() * availableStyles.length);
+      nextStyle = availableStyles[randomIndex];
+    }
+
+    return nextStyle;
   };
 
   const generateWithStyle = async (base64: string, style: StyleOption) => {
@@ -258,12 +283,24 @@ const App: React.FC = () => {
   const handleImageSelect = async (base64: string) => {
     setState(prev => ({ ...prev, originalImage: base64, generatedImage: null }));
     const randomStyle = getRandomStyle();
+    
+    // Update used cute styles if applicable
+    if (CUTE_STYLE_IDS.includes(randomStyle.id) && !usedCuteStyles.includes(randomStyle.id)) {
+      setUsedCuteStyles(prev => [...prev, randomStyle.id]);
+    }
+    
     await generateWithStyle(base64, randomStyle);
   };
 
   const handleRemix = async () => {
     if (state.originalImage && !state.isGenerating) {
       const newStyle = getRandomStyle(state.currentStyleId);
+      
+      // Update used cute styles if applicable
+      if (CUTE_STYLE_IDS.includes(newStyle.id) && !usedCuteStyles.includes(newStyle.id)) {
+        setUsedCuteStyles(prev => [...prev, newStyle.id]);
+      }
+
       await generateWithStyle(state.originalImage, newStyle);
     }
   };
