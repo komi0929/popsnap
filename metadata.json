@@ -1,0 +1,7 @@
+{
+  "name": "popsnap",
+  "description": "写真をポップなアートに変身させよう！",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
