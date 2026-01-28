@@ -57,20 +57,19 @@ export const generateCollage = async (imageBase64: string, stylePrompt: string):
   const base64Data = optimizedBase64.split(',')[1];
   const mimeType = 'image/jpeg';
 
-  // Base instruction for REALISTIC ANALOG COLLAGE
-  // Reverted to emphasize physical texture and artistic reconstruction over "beauty"
+  // Base instruction for HIGH IMPACT ARTISTIC RECONSTRUCTION
+  // Aggressively creative, bold, and transformative
   const basePrompt = `
-    Create a CONTEMPORARY MIXED-MEDIA COLLAGE from this photo.
-    
-    CRITICAL INSTRUCTIONS:
-    1. ANALOG TEXTURE: The image must look like a physical artwork created with scissors, glue, and paper.
-    2. ROUGH EDGES: Use torn paper edges, messy cutouts, and visible tape or staples.
-    3. RECONSTRUCTION: Cut the subject apart and rearrange them artistically. It should look like a patchwork of different elements.
-    4. NO FILTERS: Do not just apply a color filter. Change the material and structure of the image.
-    5. MIXED MEDIA: Incorporate elements like newspaper clippings, cardboard, acrylic paint strokes, and old photographs.
-    
-    The goal is a raw, expressive, and high-impact art piece that looks like it belongs in a modern art gallery.
-    Avoid smooth digital gradients; prefer gritty, tactile textures.
+    TRANSFORM this photo into a BOLD, EXPRESSIVE, HIGH-IMPACT COLLAGE ARTWORK.
+
+    CRITICAL RULES FOR BOLDNESS:
+    1. EXAGGERATE AND REIMAGINE: Do not be constrained by the original realism. Amplify dimensions, expressions, and colors.
+    2. DYNAMIC COMPOSITION: Break the image apart! Use diagonal cuts, overlapping layers, and explosive arrangements. Avoid static, centered compositions.
+    3. RAW MATERIALS: It must feel tactile. Use ripped posters, thick paint drips, crumpled paper, and mixed media textures.
+    4. NO BORING FILTERS: This is a reconstruction, not a filter. The subject should be artistically reassembled.
+    5. MAXIMALIST ENERGY: Fill the canvas. Use typography, abstract shapes, and contrasting textures to create visual energy.
+
+    The goal is a MASTERPIECE that pops off the screen. Make it edgy, loud, and visually stunning.
   `;
 
   // Combine base prompt with specific style instructions

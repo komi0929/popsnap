@@ -15,11 +15,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-yellow-100 border-yellow-400',
     element: 'LIGHT',
     prompt: `
-      - Style: Retro Pop Art & Comic Book.
-      - Material: Cutouts from vintage comic books and advertisements.
-      - Technique: Use bold black outlines, halftone patterns (Ben-Day dots), and high-contrast color blocks.
-      - Composition: Collage the subject with speech bubbles and "POW!" graphic shapes.
-      - Vibe: Energetic, fun, and heroic.
+      - Style: EXPLOSIVE Comic Book Cover & Pop Art.
+      - Material: Vintage American comic cutouts, distressed newsprint.
+      - Technique: THICK black outlines, EXAGGERATED Ben-Day dots, and neon-bright CMYK colors.
+      - Composition: ACTION-PACKED! Surround the subject with massive "POW!" "BAM!" sound effects and jagged burst shapes.
+      - Vibe: Heroic, loud, and impactful.
     `
   },
   {
@@ -29,11 +29,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-pink-100 border-pink-400',
     element: 'PSYCHIC',
     prompt: `
-      - Style: 60s Psychedelic Pop Art & Warhol Silk-screen.
-      - Material: Vintage comic books, newspaper clippings, and silk-screen prints.
-      - Technique: Repeat the subject's face 3-4 times in different neon colors (Warhol effect). Heavy Ben-Day dots.
-      - Composition: Explosive collage with starbursts and speech bubbles containing text like "GROOVY!", "SUPER!", "POP!".
-      - Colors: High saturation pink, turquoise, and yellow.
+      - Style: HYPER-VIBRANT 60s Psychedelic Pop Art.
+      - Material: Silk-screen prints, neon posters, and kaleidoscope patterns.
+      - Technique: Andy Warhol style REPETITION. Repeat the subject's face in clashing neon colors (Hot Pink vs Lime Green).
+      - Composition: SPIRALING visual overload! Use swirling patterns, huge stars, and balloon letters.
+      - Vibe: Trippy, groovy, and energetic.
     `
   },
   {
@@ -43,11 +43,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-stone-200 border-stone-600',
     element: 'DARK',
     prompt: `
-      - Style: Graphic Novel Noir.
-      - Material: Coarse halftone newsprint, red paint splatters, and black heavy ink.
-      - Technique: The subject is converted to a high-contrast black and white halftone pattern.
-      - Composition: Dynamic collage with bold typography and sharp angles.
-      - Vibe: Mysterious, cool, and dramatic.
+      - Style: High-Contrast NOIR Graphic Novel.
+      - Material: Rough newsprint, spilled black ink, and splatters of BLOOD RED paint.
+      - Technique: STARK Chiaroscuro. Extreme shadows vs blinding white highlights. Coarse halftone textures.
+      - Composition: Dramatic angles, hidden faces, and jagged shadows cutting across the composition.
+      - Vibe: Dangerous, cinematic, and mysterious.
     `
   },
   {
@@ -57,11 +57,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-indigo-100 border-indigo-400',
     element: 'MAGIC',
     prompt: `
-      - Style: Whimsical Surrealism.
-      - Material: Vintage book illustrations, butterflies, and clouds.
-      - Technique: Playful collage mixing the subject with dreamlike elements.
-      - Composition: Floating elements, giant flowers, and soft vintage textures.
-      - Vibe: Dreamy, magical, and imaginative.
+      - Style: Avant-Garde SURREALISM.
+      - Material: Vintage Victorian illustrations, clouds, giant eyes, and antique keys.
+      - Technique: Dreamlike juxtaposition. Blend the subject with unexpected objects (e.g., face replacing a clock).
+      - Composition: FLOATING and defying gravity. Clouds inside rooms, giant flowers, strange scales.
+      - Vibe: Otherworldly, poetic, and bizarre.
     `
   },
   {
@@ -71,11 +71,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-green-100 border-green-500',
     element: 'NATURE',
     prompt: `
-      - Style: Nature Scrapbook.
-      - Material: Real dried pressed flowers, leaves, and kraft paper.
-      - Technique: Layer the subject with organic plant matter and garden elements.
-      - Composition: Natural, organic, and textured.
-      - Vibe: Soft, peaceful, and earthy.
+      - Style: LUSH Botanical Collage.
+      - Material: Real dried pressed flowers, ferns, vines, and textured kraft paper.
+      - Technique: OVERGROWN aesthetic. The subject is entwined with nature.
+      - Composition: EXPLOSION OF FLORA. Surround the subject with a dense jungle of colorful flowers and leaves.
+      - Vibe: Organic, wild, and beautiful.
     `
   },
   {
@@ -85,11 +85,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-gray-200 border-gray-500',
     element: 'SOUND',
     prompt: `
-      - Style: Punk Rock Poster.
-      - Material: Ripped paper, photocopy textures, and tape.
-      - Technique: High contrast black and white. Rough, cool texture.
-      - Composition: Cut-out letters and bold graphic shapes.
-      - Vibe: Edgy, loud, and cool.
+      - Style: GRITTY Punk Rock Gig Poster.
+      - Material: Ripped xerox copies, duct tape, safety pins, and spray paint.
+      - Technique: PHOTOCOPY DEGRADATION. High noise, rough textures, and cutout lettering (ransom note style).
+      - Composition: CHAOTIC and rebellious. Slanted angles and distressed borders.
+      - Vibe: Aggressive, loud, and underground.
     `
   },
   {
@@ -99,11 +99,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-cyan-100 border-cyan-400',
     element: 'TECH',
     prompt: `
-      - Style: Retro Gamer Glitch.
-      - Material: Pixel art, neon lasers, and computer windows.
-      - Technique: Pixelation effects mixed with paper cutouts.
-      - Composition: Futuristic, chaotic, and colorful. Cyan and magenta colors.
-      - Vibe: Digital, fast, and electric.
+      - Style: CYBERPUNK GLITCH ART.
+      - Material: Broken screens, pixels, neon lasers, and circuit boards.
+      - Technique: DATA MOSHING. Distort the image with digital noise, scanlines, and RGB shifts.
+      - Composition: High-tech chaos. Holographic overlays and 3D wireframes.
+      - Vibe: Futuristic, dystopian, and electric.
     `
   },
   {
@@ -113,11 +113,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-purple-100 border-purple-400',
     element: 'MIND',
     prompt: `
-      - Style: Photo Mosaic Joiner.
-      - Material: Multiple square photo prints.
-      - Technique: The image is composed of many slightly overlapping square photos.
-      - Composition: Playful rearrangement of the subject.
-      - Vibe: Artistic, fun, and clever.
+      - Style: HOCKNEY-STYLE Photo Joiner.
+      - Material: Dozens of Polaroid photos or film negatives.
+      - Technique: DECONSTRUCTION. The subject is built from many slightly misaligned square photos.
+      - Composition: FRAGMENTED perspective. Play with time and space by rearranging the grid.
+      - Vibe: Intellectual, artistic, and complex.
     `
   },
   {
@@ -127,11 +127,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-orange-100 border-orange-400',
     element: 'FIRE',
     prompt: `
-      - Style: Urban Street Art.
-      - Material: Layers of colorful paper, peeling paint, and doodles.
-      - Technique: Reveal colorful layers underneath by tearing parts of the image.
-      - Composition: Bright, colorful, and textured.
-      - Vibe: Creative, messy, and bold.
+      - Style: WEATHERED Urban Decay / Billboard Art.
+      - Material: LAYERS of torn street posters, peeling paint, graffiti tags, and rust.
+      - Technique: DECOLLAGE. Tearing away layers to reveal colors underneath. Heavy texture.
+      - Composition: RAW and MESSY. Looks like a wall in a subway station artfully vandalized.
+      - Vibe: Gritty, urban, and textured.
     `
   },
   {
@@ -141,11 +141,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-rose-100 border-rose-400',
     element: 'SWEET',
     prompt: `
-      - Style: Harajuku Decora & Kawaii Aesthetic.
-      - Material: Piles of stickers, plastic gems, candy wrappers, and pastel toys.
-      - Technique: Maximalist decoration. Cover the background with cute chaotic elements.
-      - Composition: Center the subject surrounded by floating sweets, hearts, stars, and rainbows.
-      - Vibe: Overwhelmingly cute, colorful, and fun.
+      - Style: EXTREME KAWAII DECORA.
+      - Material: PLASTIC EVERYTHING. Stickers, jewels, candy wrappers, toys, and glitter.
+      - Technique: VISUAL SUFFOCATION (Horror Vacui). Fill every inch of empty space with cute items.
+      - Composition: EXPLOSION OF CUTENESS. Center subject drowning in a sea of pastels and rainbows.
+      - Vibe: Hyper-cute, overwhelming, and sugary.
     `
   },
   {
@@ -155,12 +155,12 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-violet-100 border-violet-400',
     element: 'FUTURE',
     prompt: `
-      - Style: 80s Vaporwave & Synthwave.
-      - Material: Neon lights, wireframe grids, and chrome textures.
-      - Technique: Digital airbrushing mixed with VHS glitch effects.
-      - Composition: Sunset in the background, palm trees, and geometric shapes.
-      - Colors: Neon purple, hot pink, and cyan.
-      - Vibe: Retro-futuristic, nostalgic, and cool.
+      - Style: RETRO WAVE / SYNTHWAVE.
+      - Material: Airbrushed chrome, neon tubes, and laser grids.
+      - Technique: GLOWING EFFECTS. Everything should shine with neon light.
+      - Composition: SYMMETRICAL landscape with a retro sun and digital mountains.
+      - Colors: DEEP PURPLE, HOT PINK, and ELECTRIC BLUE gradients.
+      - Vibe: Nostalgic, shiny, and cool.
     `
   }
 ];
