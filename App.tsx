@@ -15,11 +15,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-yellow-100 border-yellow-400',
     element: 'LIGHT',
     prompt: `
-      - Style: FRIENDLY COMIC BOOK & Pop Art.
-      - Material: Bright comic strips, halftone patterns, and speech bubbles.
-      - Technique: SOFT outlines, vibrant primary colors, and cheerful Ben-Day dots.
-      - Composition: FUN and ENERGETIC. Surround the subject with "POP!" "YAY!" effects and stars.
-      - Vibe: Happy, playful, and expressive.
+      - Style: VINTAGE COMIC COLLAGE & Pop Art.
+      - Material: TORN paper scraps from old comic books, distressed newsprint, and halftone textures.
+      - Technique: MIXED MEDIA ASSEMBLAGE. The subject should look like a paper cutout pasted onto a chaotic background of comic strips.
+      - Composition: DYNAMIC LAYERING. "POW!" sound effects and speech bubbles should overlap the subject. Use rough, torn edges.
+      - Vibe: Artistic, energetic, and raw (not just a flat filter).
     `
   },
   {
@@ -66,16 +66,16 @@ const STYLES: StyleOption[] = [
   },
   {
     id: 'botanical',
-    name: 'フェアリーガーデン',
-    description: 'キラキラした妖精のお庭。',
+    name: 'ボタニカルアート',
+    description: 'アンティークな植物図鑑風。',
     colorClass: 'bg-green-100 border-green-500',
     element: 'NATURE',
     prompt: `
-      - Style: MAGICAL FAIRY GARDEN.
-      - Material: Soft petals, morning dew, sparkling dust, and pastel watercolors.
-      - Technique: DREAMY and SOFT. The subject is surrounded by gentle nature and glowing lights.
-      - Composition: WHIMSICAL FLORA. Tiny flowers, butterflies, and soft green leaves framing the subject.
-      - Vibe: Cute, peaceful, and magical.
+      - Style: ANTIQUE BOTANICAL COLLAGE & Art Nouveau.
+      - Material: Yellowed parchment, detailed ink illustrations of flora, and real pressed flower textures.
+      - Technique: INTERTWINED LAYERING. Vines, leaves, and flowers should weave AROUND and OVER the subject, integrating them into the illustration.
+      - Composition: ORGANIC FUSION. The subject appears to be growing out of a vintage garden plate. Not just a person standing in front of a forest.
+      - Vibe: Elegant, artistic, and timeless (less 'fairytale', more 'museum art').
     `
   },
   {
@@ -136,16 +136,16 @@ const STYLES: StyleOption[] = [
   },
   {
     id: 'candy_pop',
-    name: 'キャンディ・ポップ',
-    description: 'ふわふわパステルなお菓子！',
+    name: 'シュガー・コラージュ',
+    description: '雑誌やステッカーのスクラップ！',
     colorClass: 'bg-rose-100 border-rose-400',
     element: 'SWEET',
     prompt: `
-      - Style: SOFT PASTEL KAWAII.
-      - Material: Marsmallows, cotton candy, soft stickers, and fluffy clouds.
-      - Technique: GENTLE and SWEET. Light pinks, baby blues, and cream colors.
-      - Composition: DREAMY CUTENESS. Subject floating among sweets and hearts. Not too crowded.
-      - Vibe: Adorable, soft, and happy.
+      - Style: POP SURREALISM / Harajuku Decora Collage.
+      - Material: Glossy magazine cutouts, 3D candy wrappers, plastic stickers, and glitter glue textures.
+      - Technique: SCRAPBOOKING. Layer items violently OVER and UNDER the subject. Make the subject look like a manually cut-out photo.
+      - Composition: CHAOTIC CURATION. A messy but artistic explosion of fashion items and sweets. Meaningful chaos.
+      - Vibe: Artistic, eccentric, and high-fashion (less 'fluffy', more 'bold').
     `
   },
   {
