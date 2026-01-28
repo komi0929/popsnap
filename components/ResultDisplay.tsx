@@ -10,6 +10,9 @@ import {
   Sparkles,
   Brush,
   Camera,
+  ChevronDown,
+  Layers,
+  Image as ImageIcon
 } from "lucide-react";
 
 export const ResultDisplay: React.FC<ResultDisplayProps> = ({
@@ -21,6 +24,8 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
 }) => {
   const [isSharing, setIsSharing] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState(0);
+  const [showDownloadOptions, setShowDownloadOptions] = useState(false);
+  const [showShareOptions, setShowShareOptions] = useState(false);
 
   // Cycle through loading phases when generating
   useEffect(() => {
@@ -34,26 +39,89 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
     return () => clearInterval(interval);
   }, [isGenerating]);
 
-  const handleDownload = () => {
-    if (generatedImage) {
+  const generateComparisonImage = (): Promise<string> => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const img1 = new Image();
+      const img2 = new Image();
+
+      img1.crossOrigin = "anonymous";
+      img2.crossOrigin = "anonymous";
+      img1.src = originalImage!;
+      img2.src = generatedImage!;
+
+      img1.onload = () => {
+        img2.onload = () => {
+          // Calculate layout: Side by side
+          const margin = 40;
+          const logoHeight = 40;
+          const canvasWidth = img1.width + img2.width + margin * 3;
+          const canvasHeight = Math.max(img1.height, img2.height) + margin * 2 + logoHeight;
+
+          canvas.width = canvasWidth;
+          canvas.height = canvasHeight;
+
+          // Background
+          if (ctx) {
+            ctx.fillStyle = "#FFFDF5"; // Creamy white
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            // Draw original
+            ctx.drawImage(img1, margin, margin);
+            // Draw generated
+            ctx.drawImage(img2, img1.width + margin * 2, margin);
+
+            // Watermark
+            ctx.fillStyle = "#cbd5e1"; // gray-300
+            ctx.font = "bold 24px sans-serif";
+            ctx.textAlign = "right";
+            ctx.fillText("produced by popsnap", canvasWidth - margin, canvasHeight - 20);
+            
+            // Labels
+            ctx.fillStyle = "#94a3b8"; // gray-400
+            ctx.textAlign = "center";
+            ctx.fillText("Before", margin + img1.width / 2, margin + img1.height + 30);
+            ctx.fillText("After", margin * 2 + img1.width + img2.width / 2, margin + img2.height + 30);
+          }
+
+          resolve(canvas.toDataURL("image/png"));
+        };
+      };
+    });
+  };
+
+  const handleDownload = async (type: 'art' | 'comparison') => {
+    let imageToDownload = generatedImage;
+    if (type === 'comparison') {
+      imageToDownload = await generateComparisonImage();
+    }
+
+    if (imageToDownload) {
       const link = document.createElement("a");
-      link.href = generatedImage;
-      link.download = `popsnap-${Date.now()}.png`;
+      link.href = imageToDownload;
+      link.download = `popsnap-${type}-${Date.now()}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
+    setShowDownloadOptions(false);
   };
 
-  const handleShare = async () => {
-    if (!generatedImage) return;
+  const handleShare = async (type: 'art' | 'comparison') => {
+    let imageToShare = generatedImage;
+    if (type === 'comparison') {
+      imageToShare = await generateComparisonImage();
+    }
+    
+    if (!imageToShare) return;
     setIsSharing(true);
-    const shareText = `popsnapでアートを作ったよ！ ✨ #popsnap #キッズアート`;
+    const shareText = `子供の写真が現代アートに！🎨 #popsnap で作成しました✨\nhttps://popsnap.vercel.app/`;
 
     try {
-      const response = await fetch(generatedImage);
+      const response = await fetch(imageToShare);
       const blob = await response.blob();
-      const file = new File([blob], "popsnap-art.png", { type: blob.type });
+      const file = new File([blob], `popsnap-${type}.png`, { type: blob.type });
 
       if (
         navigator.share &&
@@ -67,10 +135,12 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
             text: shareText,
           });
           setIsSharing(false);
+          setShowShareOptions(false);
           return;
         } catch (shareError) {
           if ((shareError as Error).name === "AbortError") {
             setIsSharing(false);
+            setShowShareOptions(false);
             return;
           }
         }
@@ -82,12 +152,13 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
         ]);
         alert("クリップボードにコピーしたよ！貼り付けてシェアしてね。");
       } catch (clipboardError) {
-        handleDownload();
+        handleDownload(type);
       }
     } catch (error) {
       console.error("Share failed:", error);
     } finally {
       setIsSharing(false);
+      setShowShareOptions(false);
     }
   };
 
@@ -211,27 +282,75 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
         </button>
 
         {generatedImage && !isGenerating && (
-          <div className="flex gap-2 w-full md:w-auto">
-            <button
-              onClick={handleDownload}
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white transition-colors shadow-md rounded-full font-bold"
-            >
-              <Download size={18} />
-              <span>保存</span>
-            </button>
-
-            <button
-              onClick={handleShare}
-              disabled={isSharing}
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-gray-800 hover:bg-black text-white transition-colors shadow-md rounded-full font-bold"
-            >
-              {isSharing ? (
-                <Loader2 size={18} className="animate-spin" />
-              ) : (
-                <Share2 size={18} />
+          <div className="flex gap-2 w-full md:w-auto mt-4 md:mt-0">
+            {/* Download Button with Options */}
+            <div className="relative flex-1 md:flex-none">
+              <button
+                onClick={() => setShowDownloadOptions(!showDownloadOptions)}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white transition-all shadow-md rounded-full font-bold"
+              >
+                <Download size={18} />
+                <span>保存</span>
+                <ChevronDown size={14} className={`transition-transform ${showDownloadOptions ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {showDownloadOptions && (
+                <div className="absolute bottom-full mb-2 left-0 w-full min-w-[200px] bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-50 animate-in slide-in-from-bottom-2">
+                  <button 
+                    onClick={() => handleDownload('art')}
+                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl text-left text-sm font-bold text-gray-700"
+                  >
+                    <ImageIcon size={18} className="text-cyan-500" />
+                    アートのみ保存
+                  </button>
+                  <button 
+                    onClick={() => handleDownload('comparison')}
+                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl text-left text-sm font-bold text-gray-700 border-t border-gray-50"
+                  >
+                    <Layers size={18} className="text-purple-500" />
+                    ビフォーアフターで保存
+                  </button>
+                </div>
               )}
-              <span>シェア</span>
-            </button>
+            </div>
+
+            {/* Share Button with Options */}
+            <div className="relative flex-1 md:flex-none">
+              <button
+                onClick={() => setShowShareOptions(!showShareOptions)}
+                disabled={isSharing}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-800 hover:bg-black text-white transition-all shadow-md rounded-full font-bold"
+              >
+                {isSharing ? (
+                  <Loader2 size={18} className="animate-spin" />
+                ) : (
+                  <>
+                    <Share2 size={18} />
+                    <span>シェア</span>
+                    <ChevronDown size={14} className={`transition-transform ${showShareOptions ? 'rotate-180' : ''}`} />
+                  </>
+                )}
+              </button>
+
+              {showShareOptions && (
+                <div className="absolute bottom-full mb-2 right-0 w-full min-w-[200px] bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-50 animate-in slide-in-from-bottom-2">
+                  <button 
+                    onClick={() => handleShare('art')}
+                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl text-left text-sm font-bold text-gray-700"
+                  >
+                    <ImageIcon size={18} className="text-cyan-500" />
+                    アートをシェア
+                  </button>
+                  <button 
+                    onClick={() => handleShare('comparison')}
+                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl text-left text-sm font-bold text-gray-700 border-t border-gray-50"
+                  >
+                    <Layers size={18} className="text-purple-500" />
+                    ビフォーアフターをシェア
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
