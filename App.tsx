@@ -325,7 +325,7 @@ const App: React.FC = () => {
             <button onClick={() => setModalContent({title: "プライバシーポリシー", text: PRIVACY_TEXT})} className="hover:text-gray-600 underline">プライバシーポリシー</button>
           </div>
           <a href="https://soystories.jp/" target="_blank" rel="noopener noreferrer" className="text-[10px] text-gray-400 hover:text-pink-400 transition-colors font-bold">
-            produced by SoyStories © 2025 v1.0.1
+            produced by SoyStories
           </a>
         </div>
       </footer>

@@ -257,14 +257,6 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
       {/* Controls */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 animate-in slide-in-from-bottom-8 duration-700 px-4">
         <button
-          onClick={onReset}
-          className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-gray-100 text-gray-600 hover:bg-gray-50 hover:border-gray-200 transition-all rounded-full font-bold shadow-sm"
-        >
-          <RefreshCcw size={18} />
-          <span>新しい写真</span>
-        </button>
-
-        <button
           onClick={onRemix}
           disabled={isGenerating}
           className={`
@@ -287,7 +279,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
             <div className="relative flex-1 md:flex-none">
               <button
                 onClick={() => setShowDownloadOptions(!showDownloadOptions)}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white transition-all shadow-md rounded-full font-bold"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white transition-all shadow-md rounded-full font-bold whitespace-nowrap"
               >
                 <Download size={18} />
                 <span>保存</span>
@@ -314,12 +306,12 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
               )}
             </div>
 
-            {/* Share Button with Options */}
+            {/* Share Button (Direct Share, no options) */}
             <div className="relative flex-1 md:flex-none">
               <button
-                onClick={() => setShowShareOptions(!showShareOptions)}
+                onClick={() => handleShare('art')}
                 disabled={isSharing}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-800 hover:bg-black text-white transition-all shadow-md rounded-full font-bold"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-800 hover:bg-black text-white transition-all shadow-md rounded-full font-bold whitespace-nowrap"
               >
                 {isSharing ? (
                   <Loader2 size={18} className="animate-spin" />
@@ -327,32 +319,20 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
                   <>
                     <Share2 size={18} />
                     <span>シェア</span>
-                    <ChevronDown size={14} className={`transition-transform ${showShareOptions ? 'rotate-180' : ''}`} />
                   </>
                 )}
               </button>
-
-              {showShareOptions && (
-                <div className="absolute bottom-full mb-2 right-0 w-full min-w-[200px] bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-50 animate-in slide-in-from-bottom-2">
-                  <button 
-                    onClick={() => handleShare('art')}
-                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl text-left text-sm font-bold text-gray-700"
-                  >
-                    <ImageIcon size={18} className="text-cyan-500" />
-                    アートをシェア
-                  </button>
-                  <button 
-                    onClick={() => handleShare('comparison')}
-                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl text-left text-sm font-bold text-gray-700 border-t border-gray-50"
-                  >
-                    <Layers size={18} className="text-purple-500" />
-                    ビフォーアフターをシェア
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         )}
+
+        <button
+          onClick={onReset}
+          className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-gray-100 text-gray-600 hover:bg-gray-50 hover:border-gray-200 transition-all rounded-full font-bold shadow-sm order-last md:order-none mt-4 md:mt-0"
+        >
+          <RefreshCcw size={18} />
+          <span>新しい写真</span>
+        </button>
       </div>
 
 
