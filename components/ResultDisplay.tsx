@@ -129,9 +129,6 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
                 className="w-full h-auto rounded"
               />
             )}
-            <p className="text-center text-xs text-gray-400 font-bold mt-2">
-              元の写真
-            </p>
           </div>
         </div>
 
@@ -239,11 +236,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({
         )}
       </div>
 
-      <div className="text-center mt-6 text-gray-400 font-medium text-sm">
-        {generatedImage && !isGenerating
-          ? "ボタンを押して違うスタイルも試してみてね！"
-          : "写真を撮ってスタート！"}
-      </div>
+
     </div>
   );
 };

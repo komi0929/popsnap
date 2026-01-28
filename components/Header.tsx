@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
         <Sparkles className="text-cyan-400 animate-bounce delay-100" size={24} />
       </div>
       <p className="text-gray-500 text-sm md:text-base font-medium tracking-wide bg-white/50 px-4 py-1 rounded-full backdrop-blur-sm">
-        お気にいりの写真をアートに変身させよう！
+        お子さんの写真が現代アートに！
       </p>
     </header>
   );
