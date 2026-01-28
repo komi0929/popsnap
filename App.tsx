@@ -15,11 +15,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-yellow-100 border-yellow-400',
     element: 'LIGHT',
     prompt: `
-      - Style: VINTAGE COMIC COLLAGE & Pop Art.
-      - Material: TORN paper scraps from old comic books, distressed newsprint, and halftone textures.
-      - Technique: MIXED MEDIA ASSEMBLAGE. The subject should look like a paper cutout pasted onto a chaotic background of comic strips.
-      - Composition: DYNAMIC LAYERING. "POW!" sound effects and speech bubbles should overlap the subject. Use rough, torn edges.
-      - Vibe: Artistic, energetic, and raw (not just a flat filter).
+      - Style: VINTAGE COMIC COLLAGE & POP ART.
+      - CORE RULE: The child's face MUST remain CUTE and undistorted. Do not apply heavy filters to the face.
+      - Technique: PAPER CUTOUT style. The subject is a high-quality sticker placed on a busy background.
+      - Background: Exploding comic strips, halftone dots, and "POW!" sound effects.
+      - Vibe: Energetic, fun, and adorable (preserving the child's expression).
     `
   },
   {
@@ -99,11 +99,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-purple-100 border-purple-400',
     element: 'MIND',
     prompt: `
-      - Style: HOCKNEY-STYLE Photo Joiner.
-      - Material: Dozens of Polaroid photos or film negatives.
-      - Technique: DECONSTRUCTION. The subject is built from many slightly misaligned square photos.
-      - Composition: FRAGMENTED perspective. Play with time and space by rearranging the grid.
-      - Vibe: Intellectual, artistic, and complex.
+      - Style: AVANT-GARDE PHOTO JOINER (David Hockney style).
+      - Technique: ARTISTIC DECONSTRUCTION. Not just small square photos.
+      - Composition: The subject is composed of LARGE, overlapping photo fragments of different sizes and angles.
+      - Detail: Focus on ABSTRACT SHAPES and shifting perspectives. Some fragments are zoomed in (an eye, a hand).
+      - Vibe: Complex, intellectual, and abstract. A true mosaic of moments.
     `
   },
   {
@@ -113,11 +113,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-orange-100 border-orange-400',
     element: 'FIRE',
     prompt: `
-      - Style: WEATHERED Urban Decay / Billboard Art.
-      - Material: LAYERS of torn street posters, peeling paint, graffiti tags, and rust.
-      - Technique: DECOLLAGE. Tearing away layers to reveal colors underneath. Heavy texture.
-      - Composition: RAW and MESSY. Looks like a wall in a subway station artfully vandalized.
-      - Vibe: Gritty, urban, and textured.
+      - Style: URBAN GRAFFITI & STENCIL ART (Banksy style).
+      - Material: Concrete wall texture, peeling posters, and vibrant spray paint.
+      - Technique: High-contrast STENCIL cutout of the subject. Splash colorful paint drips and graffiti tags around them.
+      - Composition: BOLD and EDGY. Use heavy shadows and neon highlights to make the subject pop against the gritty wall.
+      - Vibe: Rebellious, cool, and artistic masterpiece.
     `
   },
   {
