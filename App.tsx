@@ -94,16 +94,16 @@ const STYLES: StyleOption[] = [
   },
   {
     id: 'cubism',
-    name: 'パズル写真',
-    description: '写真のパズルみたい。',
+    name: 'クリスタル・パズル',
+    description: 'キラキラ輝く宝石のような世界！',
     colorClass: 'bg-purple-100 border-purple-400',
     element: 'MIND',
     prompt: `
-      - Style: ZERO-GRAVITY 3D DECONSTRUCTION.
-      - Technique: DIMENSIONAL GLITCH. The subject is sliced into floating 3D shards suspended in mid-air.
-      - Composition: ASYMMETRICAL and chaotic. Some shards are zoomed in, some are rotated. NO RADIAL BURSTS.
-      - Detail: Focus on depth and motion. It should look like a froze-frame of a shattering reality.
-      - Vibe: High-impact, edgy, and mind-bending.
+      - Style: LOW POLY GEOMETRIC ART (Stained Glass style).
+      - Technique: FACETED POLYGONS. The subject is made of sharp triangular facets like a diamond or crystal.
+      - Composition: STRUCTURED MESH. No explosions. A clean, tessellated wallpaper background of pastel and jewel-tone triangles.
+      - Detail: Sharp edges, prismatic colors, and digital aesthetics.
+      - Vibe: Modern, digital, crisp, and sparkling.
     `
   },
   {
