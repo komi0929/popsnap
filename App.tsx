@@ -37,17 +37,17 @@ const STYLES: StyleOption[] = [
     `
   },
   {
-    id: 'mystery_red',
-    name: 'シークレットエージェント',
-    description: 'クールな影とミステリー。',
-    colorClass: 'bg-stone-200 border-stone-600',
+    id: 'neon_retro',
+    name: 'ネオン・ファンク',
+    description: '80年代のレトロでクールなネオン。',
+    colorClass: 'bg-indigo-100 border-indigo-400',
     element: 'DARK',
     prompt: `
-      - Style: High-Contrast NOIR Graphic Novel.
-      - Material: Rough newsprint, spilled black ink, and splatters of BLOOD RED paint.
-      - Technique: STARK Chiaroscuro. Extreme shadows vs blinding white highlights. Coarse halftone textures.
-      - Composition: Dramatic angles, hidden faces, and jagged shadows cutting across the composition.
-      - Vibe: Dangerous, cinematic, and mysterious.
+      - Style: 80s RETRO VAPORWAVE & SYNTHWAVE.
+      - Material: Glowing neon tubes, grid landscapes, and chrome textures.
+      - Technique: NEON OUTLINE. Trace the subject in bright violet and cyan laser lines.
+      - Composition: Cybernetic horizon. Use a retro sun, palm tree silhouettes, and geometric wireframes.
+      - Vibe: Radical, nostalgic, and "midnight city" atmosphere.
     `
   },
   {
@@ -170,37 +170,25 @@ const App: React.FC = () => {
 
   const [modalContent, setModalContent] = useState<{title: string, text: string} | null>(null);
 
-  const [usedCuteStyles, setUsedCuteStyles] = useState<string[]>([]);
-  const CUTE_STYLE_IDS = ['candy_pop', 'pop', 'botanical'];
+  // History system to ensure all 9 styles are shown before repeating
+  const [usedStyleIds, setUsedStyleIds] = useState<string[]>([]);
 
-  const getRandomStyle = (excludeId?: string): StyleOption => {
-    const isInitialPhase = usedCuteStyles.length < CUTE_STYLE_IDS.length;
-    
-    let nextStyle: StyleOption;
+  const getRandomStyle = (history: string[], excludeId?: string): StyleOption => {
+    // 1. Find styles that haven't been used yet in this cycle
+    const unusedStyles = STYLES.filter(s => !history.includes(s.id));
 
-    if (isInitialPhase) {
-      // Phase 1: Pick from Cute Styles (that haven't been used yet)
-      const availableCute = CUTE_STYLE_IDS.filter(id => !usedCuteStyles.includes(id));
-      // Fallback to random cute if something goes wrong (shouldn't happen)
-      const targetPool = availableCute.length > 0 ? availableCute : CUTE_STYLE_IDS;
-      // Filter out current if remixing (unless only 1 left)
-      const validPool = excludeId && targetPool.length > 1 
-        ? targetPool.filter(id => id !== excludeId)
-        : targetPool;
-        
-      const randomId = validPool[Math.floor(Math.random() * validPool.length)];
-      nextStyle = STYLES.find(s => s.id === randomId)!;
-    } else {
-      // Phase 2: Pick from Remaining Styles (excluding Cute styles to ensure variety initially)
-      const otherStyles = STYLES.filter(s => !CUTE_STYLE_IDS.includes(s.id));
-      const availableStyles = excludeId 
-        ? otherStyles.filter(s => s.id !== excludeId)
-        : otherStyles;
-      const randomIndex = Math.floor(Math.random() * availableStyles.length);
-      nextStyle = availableStyles[randomIndex];
-    }
+    // 2. Decide pool: If we exhausted all styles, reset (use full list).
+    //    Otherwise, use the unused ones.
+    const targetPool = unusedStyles.length === 0 ? STYLES : unusedStyles;
 
-    return nextStyle;
+    // 3. Apply excludeId (don't pick the current one ideally, unless it's the only one)
+    const validPool = (excludeId && targetPool.length > 1)
+      ? targetPool.filter(s => s.id !== excludeId)
+      : targetPool;
+
+    // 4. Pick random
+    const randomIndex = Math.floor(Math.random() * validPool.length);
+    return validPool[randomIndex];
   };
 
   const generateWithStyle = async (base64: string, style: StyleOption) => {
@@ -231,26 +219,39 @@ const App: React.FC = () => {
 
   const handleImageSelect = async (base64: string) => {
     setState(prev => ({ ...prev, originalImage: base64, generatedImage: null }));
-    const randomStyle = getRandomStyle();
     
-    // Update used cute styles if applicable
-    if (CUTE_STYLE_IDS.includes(randomStyle.id) && !usedCuteStyles.includes(randomStyle.id)) {
-      setUsedCuteStyles(prev => [...prev, randomStyle.id]);
-    }
+    // Pass current history (usedStyleIds) to selection logic
+    const nextStyle = getRandomStyle(usedStyleIds);
     
-    await generateWithStyle(base64, randomStyle);
+    // Update history
+    setUsedStyleIds(prev => {
+      // If we just finished a cycle (or are about to start a new one because pool was empty),
+      // we reset history to just this new one.
+      // Logic: If prev.length == STYLES.length, we were full, so we start over.
+      // Actually, getRandomStyle handles the selection, but we need to track correctly.
+      if (prev.length >= STYLES.length) {
+        return [nextStyle.id];
+      }
+      return [...prev, nextStyle.id];
+    });
+    
+    await generateWithStyle(base64, nextStyle);
   };
 
   const handleRemix = async () => {
     if (state.originalImage && !state.isGenerating) {
-      const newStyle = getRandomStyle(state.currentStyleId);
+      const nextStyle = getRandomStyle(usedStyleIds, state.currentStyleId);
       
-      // Update used cute styles if applicable
-      if (CUTE_STYLE_IDS.includes(newStyle.id) && !usedCuteStyles.includes(newStyle.id)) {
-        setUsedCuteStyles(prev => [...prev, newStyle.id]);
-      }
+      setUsedStyleIds(prev => {
+        if (prev.length >= STYLES.length) {
+          return [nextStyle.id];
+        }
+        // Avoid duplicate ID in history if somehow picked again (shouldn't happen with random logic usually, but safe to check)
+        if (prev.includes(nextStyle.id)) return prev;
+        return [...prev, nextStyle.id];
+      });
 
-      await generateWithStyle(state.originalImage, newStyle);
+      await generateWithStyle(state.originalImage, nextStyle);
     }
   };
 
