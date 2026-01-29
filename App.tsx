@@ -17,8 +17,8 @@ const STYLES: StyleOption[] = [
     prompt: `
       - Style: VINTAGE COMIC COLLAGE & POP ART.
       - CORE RULE: The child's face MUST remain CUTE and undistorted. Do not apply heavy filters to the face.
-      - Technique: PAPER CUTOUT style. The subject is a high-quality sticker placed on a busy background.
-      - Background: Exploding comic strips, halftone dots, and "POW!" sound effects.
+      - Technique: DYNAMIC PANEL LAYOUT. Use comic book panel frames and diagonal splits.
+      - Background: Halftone dots, speed lines (horizontal/vertical), and "POW!" sound effects. NO SPIRALS.
       - Vibe: Energetic, fun, and adorable (preserving the child's expression).
     `
   },
@@ -31,8 +31,8 @@ const STYLES: StyleOption[] = [
     prompt: `
       - Style: HYPER-VIBRANT 60s Psychedelic Pop Art.
       - Material: Silk-screen prints, neon posters, and kaleidoscope patterns.
-      - Technique: Andy Warhol style REPETITION. Repeat the subject's face in clashing neon colors (Hot Pink vs Lime Green).
-      - Composition: SPIRALING visual overload! Use swirling patterns, huge stars, and balloon letters.
+      - Technique: LIQUID MELT. The background should look like a lava lamp or melting paint.
+      - Composition: WAVY HORIZONTAL BANDS and warped checkerboards. Avoid radial explosions.
       - Vibe: Trippy, groovy, and energetic.
     `
   },
@@ -99,11 +99,11 @@ const STYLES: StyleOption[] = [
     colorClass: 'bg-purple-100 border-purple-400',
     element: 'MIND',
     prompt: `
-      - Style: AVANT-GARDE PHOTO JOINER (David Hockney style).
-      - Technique: ARTISTIC DECONSTRUCTION. Not just small square photos.
-      - Composition: The subject is composed of LARGE, overlapping photo fragments of different sizes and angles.
-      - Detail: Focus on ABSTRACT SHAPES and shifting perspectives. Some fragments are zoomed in (an eye, a hand).
-      - Vibe: Complex, intellectual, and abstract. A true mosaic of moments.
+      - Style: ZERO-GRAVITY 3D DECONSTRUCTION.
+      - Technique: DIMENSIONAL GLITCH. The subject is sliced into floating 3D shards suspended in mid-air.
+      - Composition: ASYMMETRICAL and chaotic. Some shards are zoomed in, some are rotated. NO RADIAL BURSTS.
+      - Detail: Focus on depth and motion. It should look like a froze-frame of a shattering reality.
+      - Vibe: High-impact, edgy, and mind-bending.
     `
   },
   {
@@ -129,8 +129,8 @@ const STYLES: StyleOption[] = [
     prompt: `
       - Style: POP SURREALISM / Harajuku Decora Collage.
       - Material: Glossy magazine cutouts, 3D candy wrappers, plastic stickers, and glitter glue textures.
-      - Technique: SCRAPBOOKING. Layer items violently OVER and UNDER the subject. Make the subject look like a manually cut-out photo.
-      - Composition: CHAOTIC CURATION. A messy but artistic explosion of fashion items and sweets. Meaningful chaos.
+      - Technique: STICKER BOMB. The entire background is completely covered in random stickers and sweets.
+      - Composition: RANDOM SCATTER (All-over pattern). No central explosion. It should look like a messy toy box.
       - Vibe: Artistic, eccentric, and high-fashion (less 'fluffy', more 'bold').
     `
   }
